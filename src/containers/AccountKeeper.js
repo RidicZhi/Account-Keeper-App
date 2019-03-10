@@ -1,10 +1,60 @@
-import React from 'react';
-import '../main.css'
+import React from "react";
+import RecordsList from "../components/RecordList";
 
-const AccountKeeper = () => (
-  <div className='app'>
-    hello
-  </div>
-)
+const records = [
+  {
+    id: 1,
+    title: "buy MacbookPro",
+    date: "2018-09-10",
+    price: "3000",
+    category: {
+      id: 1,
+      name: "shopping",
+      type: "outcome",
+      iconName: "ios-basket"
+    }
+  },
+  {
+    id: 2,
+    title: "travelling to Sydney",
+    date: "2018-09-12",
+    price: "1000",
+    category: {
+      id: 1,
+      name: "travelling",
+      type: "outcome",
+      iconName: "ios-plane"
+    }
+  },
+  {
+    id: 3,
+    title: "salary",
+    date: "2018-09-12",
+    price: "3000",
+    category: {
+      id: 1,
+      name: "salary",
+      type: "income",
+      iconName: "ios-card"
+    }
+  }
+];
 
-export default AccountKeeper;
+export default class AccountKeeper extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header" />
+        <RecordsList
+          records={records}
+          onUpdateRecord={record => {
+            alert(record.id);
+          }}
+          onDeleteRecord={record => {
+            alert(record.id);
+          }}
+        />
+      </div>
+    );
+  }
+}
