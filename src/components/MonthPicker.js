@@ -7,7 +7,7 @@ export default class MonthPicker extends React.Component {
     super(props);
 
     this.state = {
-      isDropdownOpen: false,
+      isDropdownDisplay: false,
       selectedYear: props.year,
       selectedMonth: props.month
     };
@@ -15,12 +15,13 @@ export default class MonthPicker extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.selectYear = this.selectYear.bind(this);
     this.selectMonth = this.selectMonth.bind(this);
+    this.hideDropdownMenuByClickOtherArea = this.hideDropdownMenuByClickOtherArea.bind(this);
   }
 
   toggleDropdown(e) {
     e.preventDefault();
     this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
+      isDropdownDisplay: !this.state.isDropdownDisplay
     });
   }
 
@@ -34,15 +35,28 @@ export default class MonthPicker extends React.Component {
   selectMonth(e, monthNum) {
     e.preventDefault();
     this.setState({
-      isDropdownOpen: false,
+      isDropdownDisplay: false,
       selectedMonth: monthNum
     });
     this.props.onChange(this.state.selectedYear, monthNum);
   }
 
+  hideDropdownMenuByClickOtherArea(e){
+    if(e.target.className.indexOf("notToggleZone") != -1){
+      return;
+    }  
+    this.setState({
+      isDropdownDisplay: false,
+    }) 
+  }
+
+  componentDidMount() {
+    document.addEventListener("click", this.hideDropdownMenuByClickOtherArea)
+  }
+
   render() {
     const { year, month } = this.props;
-    const { isDropdownOpen, selectedYear, selectedMonth } = this.state;
+    const { isDropdownDisplay, selectedYear, selectedMonth } = this.state;
 
     const monthRange = range(12, 1);
     const yearRange = range(9, -4).map(num => num + year);
@@ -51,27 +65,27 @@ export default class MonthPicker extends React.Component {
       <div className="dropdown">
         <h4>Select Month</h4>
         <button
-          className="btn btn-lg btn-secondary dropdown-toggle"
+          className="btn btn-lg btn-secondary dropdown-toggle notToggleZone"
           onClick={this.toggleDropdown}
         >
           {selectedYear} / {padLeft(selectedMonth)}
         </button>
-        {isDropdownOpen && (
+        {isDropdownDisplay && (
           <div 
-            className="dropdown-menu" 
+            className="dropdown-menu notToggleZone" 
             style={{ display: "block" , padding:"5px 15px 10px 15px"}}
           >
-            <h6 className="dropdown-header" style={{ textAlign:"center"}}>Select Month</h6>
-            <div className="row">
-              <div className="col border-right">
+            <h6 className="dropdown-header notToggleZone" style={{ textAlign:"center"}}>Select Month</h6>
+            <div className="row notToggleZone">
+              <div className="col border-right notToggleZone">
                 {yearRange.map((yearNum, index) => (
                   <a
                     key={index}
                     href="#"
                     className={
                       yearNum === selectedYear
-                        ? "dropdown-item active"
-                        : "dropdown-item"
+                        ? "dropdown-item active notToggleZone"
+                        : "dropdown-item notToggleZone"
                     }
                     onClick={e => this.selectYear(e, yearNum)}
                   >
@@ -79,15 +93,15 @@ export default class MonthPicker extends React.Component {
                   </a>
                 ))}
               </div>
-              <div className="col">
+              <div className="col notToggleZone">
                 {monthRange.map((monthNum, index) => (
                   <a
                     key={index}
                     href="#"
                     className={
                       monthNum === selectedMonth
-                        ? "dropdown-item active"
-                        : "dropdown-item"
+                        ? "dropdown-item active notToggleZone"
+                        : "dropdown-item notToggleZone"
                     }
                     onClick={e => this.selectMonth(e, monthNum)}
                   >
