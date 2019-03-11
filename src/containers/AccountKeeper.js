@@ -3,6 +3,7 @@ import RecordsList from "../components/RecordList";
 import ViewTab from "../components/ViewTab";
 import { LIST_VIEW, CHART_VIEW } from '../utility';
 import AccountSummary from '../components/AccountSummary';
+import MonthPicker from "../components/MonthPicker";
 
 const records = [
   {
@@ -64,6 +65,11 @@ export default class AccountKeeper extends React.Component {
           onDeleteRecord={record => {
             alert(record.id);
           }}
+        />
+        <MonthPicker 
+          year={2008}
+          month={6}
+          onChange={(year,month) => {console.log(year + "  " + month)}}
         />
       </div>
     );
