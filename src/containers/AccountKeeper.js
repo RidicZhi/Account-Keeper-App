@@ -1,5 +1,8 @@
 import React from "react";
 import RecordsList from "../components/RecordList";
+import ViewTab from "../components/ViewTab";
+import { LIST_VIEW, CHART_VIEW } from '../utility';
+import AccountSummary from '../components/AccountSummary';
 
 const records = [
   {
@@ -28,7 +31,7 @@ const records = [
   },
   {
     id: 3,
-    title: "salary",
+    title: "monthly wages",
     date: "2018-09-12",
     price: "3000",
     category: {
@@ -45,6 +48,14 @@ export default class AccountKeeper extends React.Component {
     return (
       <div className="App">
         <header className="App-header" />
+        <AccountSummary 
+          income={3000}
+          outcome={4000}
+        />
+        <ViewTab 
+          activeTab={LIST_VIEW}
+          onTabChange={(viewMode) => {console.log(viewMode)}}
+        />
         <RecordsList
           records={records}
           onUpdateRecord={record => {

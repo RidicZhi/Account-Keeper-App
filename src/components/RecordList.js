@@ -1,7 +1,12 @@
 import React from "react";
 import Ionicon from "react-ionicons";
+import PropTypes from 'prop-types';
 
-const RecordsList = ({ records, onUpdateRecord, onDeleteRecord }) => {
+const RecordsList = ({ 
+  records, 
+  onUpdateRecord, 
+  onDeleteRecord 
+}) => {
   return (
     <ul className="list-group list-group-flush">
       {records.map(record => (
@@ -10,10 +15,10 @@ const RecordsList = ({ records, onUpdateRecord, onDeleteRecord }) => {
           key={record.id}
         >
           <span className="col-1">
-            <Ionicon 
+            <Ionicon
               className="rounded-circle"
               fontSize="35px"
-              style={{ backgroundColor:'#007bff', padding:'5px' }}
+              style={{ backgroundColor: "#007bff", padding: "5px" }}
               color="#fff"
               icon={record.category.iconName}
             />
@@ -29,10 +34,10 @@ const RecordsList = ({ records, onUpdateRecord, onDeleteRecord }) => {
               onUpdateRecord(record);
             }}
           >
-            <Ionicon 
+            <Ionicon
               className="rounded-circle"
               fontSize="35px"
-              style={{ backgroundColor:'#28a745', padding:'5px' }}
+              style={{ backgroundColor: "#28a745", padding: "5px" }}
               color="#fff"
               icon="ios-create-outline"
             />
@@ -43,10 +48,10 @@ const RecordsList = ({ records, onUpdateRecord, onDeleteRecord }) => {
               onDeleteRecord(record);
             }}
           >
-            <Ionicon 
+            <Ionicon
               className="rounded-circle"
               fontSize="35px"
-              style={{ backgroundColor:'#dc3545', padding:'5px' }}
+              style={{ backgroundColor: "#dc3545", padding: "5px" }}
               color="#fff"
               icon="ios-close"
             />
@@ -56,5 +61,15 @@ const RecordsList = ({ records, onUpdateRecord, onDeleteRecord }) => {
     </ul>
   );
 };
+
+RecordsList.defaultProps = {
+  records: [],
+}
+
+RecordsList.propTypes = {
+  records: PropTypes.array.isRequired,
+  onUpdateRecord: PropTypes.func.isRequired,
+  onDeleteRecord: PropTypes.func.isRequired
+}
 
 export default RecordsList;
