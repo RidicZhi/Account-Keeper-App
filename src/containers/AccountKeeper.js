@@ -1,5 +1,6 @@
 import React from "react";
 import RecordsList from "../components/RecordList";
+import CreateRecordBtn from "../components/CreateRecordBtn";
 import ViewTab from "../components/ViewTab";
 import { LIST_VIEW, CHART_VIEW } from '../utility';
 import AccountSummary from '../components/AccountSummary';
@@ -53,6 +54,7 @@ export default class AccountKeeper extends React.Component {
           income={3000}
           outcome={4000}
         />
+        <CreateRecordBtn />
         <ViewTab 
           activeTab={LIST_VIEW}
           onTabChange={(viewMode) => {console.log(viewMode)}}
