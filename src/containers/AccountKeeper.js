@@ -48,32 +48,41 @@ const records = [
 export default class AccountKeeper extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header" />
-        <AccountSummary 
-          income={3000}
-          outcome={4000}
-        />
-        <CreateRecordBtn />
-        <ViewTab 
-          activeTab={LIST_VIEW}
-          onTabChange={(viewMode) => {console.log(viewMode)}}
-        />
-        <RecordsList
-          records={records}
-          onUpdateRecord={record => {
-            alert(record.id);
-          }}
-          onDeleteRecord={record => {
-            alert(record.id);
-          }}
-        />
-        <MonthPicker 
-          year={2008}
-          month={6}
-          onChange={(year,month) => {console.log(year + "  " + month)}}
-        />
-      </div>
+      <React.Fragment>
+        <header className="App-header">
+          <div className="row my-4">
+            <div className="col text-center">
+              <MonthPicker 
+                year={2008}
+                month={6}
+                onChange={(year,month) => {console.log(year + "  " + month)}}
+              />
+            </div>
+            <div className="col text-center mt-4">
+              <AccountSummary 
+                income={3000}
+                outcome={4000}
+              />
+            </div>
+          </div>
+        </header>
+        <div className="content-area py-2 px-5">
+          <ViewTab 
+            activeTab={LIST_VIEW}
+            onTabChange={(viewMode) => {console.log(viewMode)}}
+          />
+          <CreateRecordBtn />
+          <RecordsList
+            records={records}
+            onUpdateRecord={record => {
+              alert(record.id);
+            }}
+            onDeleteRecord={record => {
+              alert(record.id);
+            }}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
