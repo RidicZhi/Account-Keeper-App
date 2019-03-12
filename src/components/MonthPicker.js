@@ -15,7 +15,9 @@ export default class MonthPicker extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.selectYear = this.selectYear.bind(this);
     this.selectMonth = this.selectMonth.bind(this);
-    this.hideDropdownMenuByClickOtherArea = this.hideDropdownMenuByClickOtherArea.bind(this);
+    this.hideDropdownMenuByClickOtherArea = this.hideDropdownMenuByClickOtherArea.bind(
+      this
+    );
   }
 
   toggleDropdown(e) {
@@ -41,17 +43,17 @@ export default class MonthPicker extends React.Component {
     this.props.onChange(this.state.selectedYear, monthNum);
   }
 
-  hideDropdownMenuByClickOtherArea(e){
-    if(e.target.className.indexOf("notToggleZone") != -1){
+  hideDropdownMenuByClickOtherArea(e) {
+    if (e.target.className.indexOf("notToggleZone") != -1) {
       return;
-    }  
+    }
     this.setState({
-      isDropdownDisplay: false,
-    }) 
+      isDropdownDisplay: false
+    });
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.hideDropdownMenuByClickOtherArea)
+    document.addEventListener("click", this.hideDropdownMenuByClickOtherArea);
   }
 
   render() {
@@ -71,11 +73,16 @@ export default class MonthPicker extends React.Component {
           {selectedYear} / {padLeft(selectedMonth)}
         </button>
         {isDropdownDisplay && (
-          <div 
-            className="dropdown-menu notToggleZone" 
-            style={{ display: "block" , padding:"5px 15px 10px 15px"}}
+          <div
+            className="dropdown-menu notToggleZone"
+            style={{ display: "block", padding: "5px 15px 10px 15px" }}
           >
-            <h6 className="dropdown-header notToggleZone" style={{ textAlign:"center"}}>Select Month</h6>
+            <h6
+              className="dropdown-header notToggleZone"
+              style={{ textAlign: "center" }}
+            >
+              Select Month
+            </h6>
             <div className="row notToggleZone">
               <div className="col border-right notToggleZone">
                 {yearRange.map((yearNum, index) => (
@@ -121,4 +128,4 @@ MonthPicker.propTypes = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired
-}
+};
