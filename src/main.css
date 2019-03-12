@@ -1,3 +1,15 @@
-div {
-  color: aquamarine
+header {
+  margin: 2rem auto;
+  padding: 1rem 0;
+  width: 90%;
+  background-color: #007bff;
+  color: #fff;
+  border: 5px solid #0160c6;
+  border-radius: 0.3rem;
+}
+
+.nav-tabs .nav-link.active {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-color: #B3B6BA #B3B6BA #fff;
 }

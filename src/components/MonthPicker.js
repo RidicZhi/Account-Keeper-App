@@ -67,7 +67,7 @@ export default class MonthPicker extends React.Component {
       <div className="dropdown">
         <h4>Select Month</h4>
         <button
-          className="btn btn-lg btn-secondary dropdown-toggle notToggleZone"
+          className="btn btn-lg btn-light dropdown-toggle notToggleZone"
           onClick={this.toggleDropdown}
         >
           {selectedYear} / {padLeft(selectedMonth)}

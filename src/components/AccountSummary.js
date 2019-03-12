@@ -6,12 +6,14 @@ const AccountSummary = ({
   outcome,
 }) => {
   return (
-    <div className="container">
-      <div className="row justify-content-center font-weight-bold" style={{ fontSize: "1.2rem" }}>
-        <div className="col-4">
+    <div className="container mb-2">
+      <div className="row justify-content-center mb-2" style={{ fontSize: "1.3rem" }}>
+        <div className="col">
           Income: ${income}
         </div>
-        <div className="col-4">
+      </div>
+      <div className="row justify-content-center" style={{ fontSize: "1.3rem" }}>
+        <div className="col">
           Outcome: ${outcome}
         </div>
       </div>

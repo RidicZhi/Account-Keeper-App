@@ -50,6 +50,9 @@ export default class AccountKeeper extends React.Component {
     return (
       <React.Fragment>
         <header className="App-header">
+          <div className="row justify-content-center">
+            <h2>Keep Account</h2> 
+          </div>
           <div className="row my-4">
             <div className="col text-center">
               <MonthPicker 
@@ -58,7 +61,7 @@ export default class AccountKeeper extends React.Component {
                 onChange={(year,month) => {console.log(year + "  " + month)}}
               />
             </div>
-            <div className="col text-center mt-4">
+            <div className="col text-center mt-2">
               <AccountSummary 
                 income={3000}
                 outcome={4000}
