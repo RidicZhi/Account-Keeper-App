@@ -40,7 +40,7 @@ export default class MonthPicker extends React.Component {
       isDropdownDisplay: false,
       selectedMonth: monthNum
     });
-    this.props.onDateChange(this.state.selectedYear, monthNum);
+    this.props.onChangDate(this.state.selectedYear, monthNum);
   }
 
   hideDropdownMenuByClickOtherArea(e) {
@@ -127,5 +127,5 @@ export default class MonthPicker extends React.Component {
 MonthPicker.propTypes = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
-  onDateChange: PropTypes.func.isRequired
+  onChangDate: PropTypes.func.isRequired
 };
