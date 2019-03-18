@@ -1,9 +1,10 @@
 import React from "react";
 
-const CreateRecordBtn = () => (
-  <button 
-    type="button" 
+const CreateRecordBtn = ({ onCreateRecord }) => (
+  <button
+    type="button"
     className="btn btn-primary btn-lg btn-block"
+    onClick={onCreateRecord}
   >
     Create A New Record
   </button>

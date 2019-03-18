@@ -2,8 +2,8 @@ import React from "react";
 import RecordsList from "../components/RecordList";
 import CreateRecordBtn from "../components/CreateRecordBtn";
 import ViewTab from "../components/ViewTab";
-import { LIST_VIEW, CHART_VIEW, INCOME, parseToYearAndMonth } from '../utility';
-import AccountSummary from '../components/AccountSummary';
+import { LIST_VIEW, CHART_VIEW, INCOME, parseToYearAndMonth } from "../utility";
+import AccountSummary from "../components/AccountSummary";
 import MonthPicker from "../components/MonthPicker";
 
 const categories = {
@@ -25,7 +25,7 @@ const categories = {
     type: "income",
     iconName: "ios-card"
   }
-}
+};
 const records = [
   {
     id: 1,
@@ -56,66 +56,79 @@ export default class AccountKeeper extends React.Component {
     this.state = {
       records,
       currentDate: parseToYearAndMonth(),
-      tabView: LIST_VIEW,
-    }
+      tabView: LIST_VIEW
+    };
   }
 
   render() {
-    const { records, currentDate, tabView} = this.state;
-    
+    const { records, currentDate, tabView } = this.state;
+
     const recordsWithCategory = records.map(record => {
       record.category = categories[record.cid];
       return record;
-    })
+    });
 
-    let totalIncome = 0, totalOutcome = 0;
+    let totalIncome = 0,
+      totalOutcome = 0;
     recordsWithCategory.forEach(item => {
-      if(item.category.type === INCOME) {
+      if (item.category.type === INCOME) {
         totalIncome += item.price;
       } else {
         totalOutcome += item.price;
       }
-    })
-    
+    });
+
     return (
       <React.Fragment>
-        <header className="App-header">
+        <header>
           <div className="row justify-content-center">
-            <h2>Keep Account</h2> 
+            <h2>Keep Account</h2>
           </div>
           <div className="row my-4">
             <div className="col text-center">
-              <MonthPicker 
+              <MonthPicker
                 year={currentDate.year}
                 month={currentDate.month}
-                onChange={(year,month) => {console.log(year + "  " + month)}}
+                onDateChange={this.onDateChange}
               />
             </div>
             <div className="col text-center mt-2">
-              <AccountSummary 
-                income={totalIncome}
-                outcome={totalOutcome}
-              />
+              <AccountSummary income={totalIncome} outcome={totalOutcome} />
             </div>
           </div>
         </header>
         <div className="content-area py-2 px-5">
-          <ViewTab 
-            activeTab={tabView}
-            onTabChange={(viewMode) => {console.log(viewMode)}}
+          <ViewTab activeTab={tabView} onViewChange={this.onViewChange} />
+          <CreateRecordBtn 
+            onCreateRecord={this.onCreateRecord}
           />
-          <CreateRecordBtn />
           <RecordsList
             records={recordsWithCategory}
-            onUpdateRecord={record => {
-              alert(record.id);
-            }}
-            onDeleteRecord={record => {
-              alert(record.id);
-            }}
+            onUpdateRecord={this.onUpdateRecord}
+            onDeleteRecord={this.onDeleteRecord}
           />
         </div>
       </React.Fragment>
     );
+  }
+
+  onViewChange(viewMode) {
+    console.log(viewMode);
+  }
+
+  onDateChange(year, month) {
+    console.log(year + "  " + month);
+  }
+
+  onUpdateRecord(record) {
+    alert(record.id);
+  }
+
+  onDeleteRecord(record) {
+    alert(record.id);
+  }
+
+  onCreateRecord() {
+    console.log("create btn")
   }
 }
