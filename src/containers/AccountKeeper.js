@@ -2,7 +2,7 @@ import React from "react";
 import RecordsList from "../components/RecordList";
 import CreateRecordBtn from "../components/CreateRecordBtn";
 import ViewTab from "../components/ViewTab";
-import { LIST_VIEW, CHART_VIEW, INCOME, parseToYearAndMonth } from "../utility";
+import { LIST_VIEW, CHART_VIEW, INCOME, parseToYearAndMonth, padLeft } from "../utility";
 import AccountSummary from "../components/AccountSummary";
 import MonthPicker from "../components/MonthPicker";
 
@@ -26,6 +26,7 @@ const categories = {
     iconName: "ios-card"
   }
 };
+
 const records = [
   {
     id: 1,
@@ -37,27 +38,42 @@ const records = [
   {
     id: 2,
     title: "travelling to Sydney",
-    date: "2018-09-12",
+    date: "2018-10-12",
     price: 1000,
     cid: 2
   },
   {
     id: 3,
     title: "monthly wages",
-    date: "2018-09-12",
+    date: "2019-03-12",
     price: 3000,
     cid: 3
   }
 ];
 
+const newRecord = {
+  id: 4,
+  title: "buy keyboard",
+  date: "2019-03-15",
+  price: 200,
+  cid: 1
+};
+
 export default class AccountKeeper extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       records,
       currentDate: parseToYearAndMonth(),
       tabView: LIST_VIEW
     };
+
+    this.onChangView = this.onChangView.bind(this);
+    this.onCreateRecord = this.onCreateRecord.bind(this);
+    this.onDeleteRecord = this.onDeleteRecord.bind(this);
+    this.onUpdateRecord = this.onUpdateRecord.bind(this);
+    this.onChangDate = this.onChangDate.bind(this);
   }
 
   render() {
@@ -66,6 +82,8 @@ export default class AccountKeeper extends React.Component {
     const recordsWithCategory = records.map(record => {
       record.category = categories[record.cid];
       return record;
+    }).filter(record => {
+      return record.date.includes(`${currentDate.year}-${padLeft(currentDate.month)}`)
     });
 
     let totalIncome = 0,
@@ -89,7 +107,7 @@ export default class AccountKeeper extends React.Component {
               <MonthPicker
                 year={currentDate.year}
                 month={currentDate.month}
-                onDateChange={this.onDateChange}
+                onChangDate={this.onChangDate}
               />
             </div>
             <div className="col text-center mt-2">
@@ -98,37 +116,64 @@ export default class AccountKeeper extends React.Component {
           </div>
         </header>
         <div className="content-area py-2 px-5">
-          <ViewTab activeTab={tabView} onViewChange={this.onViewChange} />
-          <CreateRecordBtn 
-            onCreateRecord={this.onCreateRecord}
+          <ViewTab activeTab={tabView} onChangView={this.onChangView} />
+          <CreateRecordBtn
+            onCreateRecord={() => this.onCreateRecord(newRecord)}
           />
-          <RecordsList
-            records={recordsWithCategory}
-            onUpdateRecord={this.onUpdateRecord}
-            onDeleteRecord={this.onDeleteRecord}
-          />
+          {tabView === LIST_VIEW && (
+            <RecordsList
+              records={recordsWithCategory}
+              onUpdateRecord={this.onUpdateRecord}
+              onDeleteRecord={this.onDeleteRecord}
+            />
+          )}
+          {tabView === CHART_VIEW && <h1>this is chart zone</h1>}
         </div>
       </React.Fragment>
     );
   }
 
-  onViewChange(viewMode) {
-    console.log(viewMode);
+  onChangView(viewMode) {
+    this.setState({
+      tabView: viewMode
+    });
   }
 
-  onDateChange(year, month) {
+  onChangDate(year, month) {
     console.log(year + "  " + month);
+    this.setState({
+      currentDate: { year, month }
+    });
   }
 
-  onUpdateRecord(record) {
-    alert(record.id);
+  onUpdateRecord(updatedRecord) {
+    const updatedRecords = this.state.records.map(record => {
+      if (record.id === updatedRecord.id) {
+        return { ...record, title: "updated title" };
+      }
+      return record;
+    });
+
+    this.setState({
+      records: updatedRecords
+    });
   }
 
-  onDeleteRecord(record) {
-    alert(record.id);
+  onDeleteRecord(deletedRecord) {
+    const filteredRecords = this.state.records.filter(
+      record => record.id !== deletedRecord.id
+    );
+
+    this.setState({
+      records: filteredRecords
+    });
   }
 
-  onCreateRecord() {
-    console.log("create btn")
+  onCreateRecord(newRecord) {
+    const newRecords = [newRecord, ...this.state.records];
+
+    this.setState({
+      records: newRecords
+    });
   }
 }
