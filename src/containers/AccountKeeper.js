@@ -6,7 +6,7 @@ import { LIST_VIEW, CHART_VIEW, INCOME, parseToYearAndMonth, padLeft } from "../
 import AccountSummary from "../components/AccountSummary";
 import MonthPicker from "../components/MonthPicker";
 
-const categories = {
+export const categories = {
   1: {
     id: 1,
     name: "shopping",
@@ -27,7 +27,7 @@ const categories = {
   }
 };
 
-const records = [
+export const records = [
   {
     id: 1,
     title: "buy MacbookPro",
@@ -100,7 +100,7 @@ export default class AccountKeeper extends React.Component {
       <React.Fragment>
         <header>
           <div className="row justify-content-center">
-            <h2>Keep Account</h2>
+            <h2>Account Keeper</h2>
           </div>
           <div className="row my-4">
             <div className="col text-center">
