@@ -15,9 +15,9 @@ export default class MonthPicker extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.selectYear = this.selectYear.bind(this);
     this.selectMonth = this.selectMonth.bind(this);
-    this.hideDropdownMenuByClickOtherArea = this.hideDropdownMenuByClickOtherArea.bind(
-      this
-    );
+    // this.hideDropdownMenuByClickOtherArea = this.hideDropdownMenuByClickOtherArea.bind(
+    //   this
+    // );
   }
 
   toggleDropdown(e) {
@@ -43,18 +43,18 @@ export default class MonthPicker extends React.Component {
     this.props.onChangDate(this.state.selectedYear, monthNum);
   }
 
-  hideDropdownMenuByClickOtherArea(e) {
-    if (e.target.className.indexOf("notToggleZone") != -1) {
-      return;
-    }
-    this.setState({
-      isDropdownDisplay: false
-    });
-  }
+  // hideDropdownMenuByClickOtherArea(e) {
+  //   if (e.target.className.indexOf("notToggleZone") != -1) {
+  //     return;
+  //   }
+  //   this.setState({
+  //     isDropdownDisplay: false
+  //   });
+  // }
 
-  componentDidMount() {
-    document.addEventListener("click", this.hideDropdownMenuByClickOtherArea);
-  }
+  // componentDidMount() {
+  //   document.addEventListener("click", this.hideDropdownMenuByClickOtherArea);
+  // }
 
   render() {
     const { year, month } = this.props;
